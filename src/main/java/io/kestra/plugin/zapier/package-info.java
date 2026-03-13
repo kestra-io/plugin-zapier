@@ -1,6 +1,6 @@
 @PluginSubGroup(
-    title = "Example plugin",
-    description = "A plugin to show how to build a plugin in Kestra.",
+    title = "Zapier",
+    description = "Interact with Zapier webhooks and automations from Kestra workflows.",
     categories = PluginSubGroup.PluginCategory.TOOL
 )
 package io.kestra.plugin.zapier;
