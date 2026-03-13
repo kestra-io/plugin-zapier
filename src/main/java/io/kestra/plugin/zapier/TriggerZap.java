@@ -32,10 +32,10 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Send an HTTP request to a Zapier Catch Hook URL.",
+    title = "Send data to a Zap",
     description = """
-        Triggers a Zap by sending an HTTP request to a Zapier webhook (Catch Hook) URL.
-        Supports POST, PUT, and GET methods with optional JSON payload and custom headers."""
+        Sends an HTTP request to a Zapier Catch Hook URL to trigger a Zap.
+        Supports `POST`, `PUT`, and `GET`; `POST` is the default, JSON content is only sent for `POST` and `PUT`, and the request timeout defaults to 30 seconds."""
 )
 @Plugin(
     examples = {
@@ -61,53 +61,53 @@ import java.util.stream.Collectors;
 public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> {
 
     @Schema(
-        title = "The Zapier Catch Hook URL.",
+        title = "Zapier Catch Hook URL",
         description = """
-            The full URL of the Zapier webhook endpoint to send the request to.
-            Typically looks like https://hooks.zapier.com/hooks/catch/XXXXX/XXXXX/."""
+            Full Zapier webhook URL to call after rendering.
+            Use the Catch Hook URL provided by Zapier, typically `https://hooks.zapier.com/hooks/catch/...`"""
     )
     @NotNull
     private Property<String> url;
 
     @Schema(
-        title = "The JSON payload to send.",
+        title = "JSON request content",
         description = """
-            An optional map of key-value pairs that will be serialized as JSON
-            and sent as the request body."""
+            Optional map rendered from the task context and serialized as JSON.
+            Ignored for `GET` requests because this task only builds a request body for `POST` and `PUT`"""
     )
     private Property<Map<String, Object>> content;
 
     @Schema(
-        title = "The HTTP method to use.",
+        title = "HTTP method",
         description = """
-            The HTTP method for the request. Defaults to POST.
-            Supported values are POST, PUT, and GET."""
+            HTTP method used for the webhook call.
+            Defaults to `POST`; supported values are `POST`, `PUT`, and `GET`"""
     )
     @Builder.Default
     private Property<HttpMethod> method = Property.ofValue(HttpMethod.POST);
 
     @Schema(
-        title = "Custom HTTP headers.",
+        title = "Custom HTTP headers",
         description = """
-            An optional map of custom headers to include in the request.
-            Content-Type is set to application/json by default when a body is present."""
+            Optional headers added to the outbound request after rendering.
+            If a JSON body is sent and `Content-Type` is not provided, this task sets it to `application/json`"""
     )
     private Property<Map<String, String>> headers;
 
     @Schema(
-        title = "The request timeout duration.",
+        title = "Request timeout",
         description = """
-            Maximum time to wait for the Zapier webhook to respond.
-            Defaults to 30 seconds."""
+            Maximum time to wait for the Zapier webhook response.
+            Defaults to 30 seconds and is applied as the HTTP connect timeout configuration"""
     )
     @Builder.Default
     private Property<Duration> timeout = Property.ofValue(Duration.ofSeconds(30));
 
     @Schema(
-        title = "Whether to allow failed HTTP responses.",
+        title = "Allow failed HTTP responses",
         description = """
-            If set to true, the task will not fail on non-2xx HTTP response codes
-            and will still return the output. Defaults to false."""
+            When enabled, the task returns output for non-2xx responses instead of failing.
+            Defaults to `false`, so HTTP failures raise an exception unless explicitly allowed"""
     )
     @Builder.Default
     private Property<Boolean> allowFailed = Property.ofValue(false);
@@ -230,24 +230,24 @@ public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> 
     @Getter
     public static class Output implements io.kestra.core.models.tasks.Output {
         @Schema(
-            title = "The HTTP response status code.",
+            title = "HTTP response status code",
             description = """
-                The HTTP status code returned by the Zapier webhook endpoint."""
+                Status code returned by the Zapier webhook endpoint"""
         )
         private final Integer status;
 
         @Schema(
-            title = "The raw response body.",
+            title = "Raw response body",
             description = """
-                The raw response body returned by the Zapier webhook as a string."""
+                Response body returned by Zapier as a string"""
         )
         private final String body;
 
         @Schema(
-            title = "The attempt or request ID from Zapier.",
+            title = "Zapier attempt or request ID",
             description = """
-                The attempt or request identifier extracted from the response headers,
-                if provided by Zapier. May be null if not present."""
+                `X-Attempt-Id` or `X-Request-Id` extracted from the response headers when Zapier provides one.
+                Returns `null` when neither header is present"""
         )
         private final String attemptId;
     }

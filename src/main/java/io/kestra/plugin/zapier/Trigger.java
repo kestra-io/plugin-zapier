@@ -21,8 +21,10 @@ import java.util.Optional;
 @NoArgsConstructor
 @Plugin
 @Schema(
-    title = "Trigger an execution randomly",
-    description ="Trigger an execution randomly"
+    title = "Trigger executions at random",
+    description = """
+        Polls on the configured interval and creates an Execution only when a random value is greater than or equal to `min`.
+        The interval is fixed at 60 seconds in this implementation, and `min` defaults to `0.5` after rendering."""
 )
 public class Trigger extends AbstractTrigger implements PollingTriggerInterface, TriggerOutput<Trigger.Output> {
     @Builder.Default
