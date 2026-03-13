@@ -1,12 +1,12 @@
-# Kestra Template Plugin
+# Kestra Zapier Plugin
 
 ## What
 
-description = 'Plugin template for Kestra Exposes 1 plugin components (tasks, triggers, and/or conditions).
+description = 'Plugin zapier for Kestra Exposes 1 plugin components (tasks, triggers, and/or conditions).
 
 ## Why
 
-Enables Kestra workflows to interact with Template, allowing orchestration of Template-based operations as part of data pipelines and automation workflows.
+Enables Kestra workflows to interact with Zapier, allowing orchestration of Zapier-based operations as part of data pipelines and automation workflows.
 
 ## How
 
@@ -14,7 +14,7 @@ Enables Kestra workflows to interact with Template, allowing orchestration of Te
 
 Single-module plugin. Source packages under `io.kestra.plugin`:
 
-- `templates`
+- `zapier`
 
 Infrastructure dependencies (Docker Compose services):
 
@@ -22,14 +22,14 @@ Infrastructure dependencies (Docker Compose services):
 
 ### Key Plugin Classes
 
-- `io.kestra.plugin.templates.Example`
+- `io.kestra.plugin.zapier.Example`
 
 ### Project Structure
 
 ```
-plugin-template/
-├── src/main/java/io/kestra/plugin/templates/
-├── src/test/java/io/kestra/plugin/templates/
+plugin-zapier/
+├── src/main/java/io/kestra/plugin/zapier/
+├── src/test/java/io/kestra/plugin/zapier/
 ├── build.gradle
 └── README.md
 ```
