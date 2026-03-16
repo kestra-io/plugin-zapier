@@ -125,7 +125,7 @@ public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> 
         var rContent = runContext.render(content).asMap(String.class, Object.class);
 
         @SuppressWarnings("unchecked")
-        var rHeaders = headers != null ? (Map<String, String>) runContext.render(headers).asMap(String.class, String.class) : null;
+        var rHeaders = runContext.render(headers).asMap(String.class, String.class);
 
         logger.info("Sending {} request to Zapier webhook: {}", rMethod, rUrl);
 
