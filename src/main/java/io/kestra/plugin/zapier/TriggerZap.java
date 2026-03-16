@@ -122,7 +122,7 @@ public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> 
         var rAllowFailed = runContext.render(allowFailed).as(Boolean.class).orElse(false);
 
         @SuppressWarnings("unchecked")
-        var rContent = content != null ? (Map<String, Object>) runContext.render(content).asMap(String.class, Object.class) : null;
+        var rContent = runContext.render(content).asMap(String.class, Object.class);
 
         @SuppressWarnings("unchecked")
         var rHeaders = headers != null ? (Map<String, String>) runContext.render(headers).asMap(String.class, String.class) : null;
