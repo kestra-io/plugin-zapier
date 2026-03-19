@@ -50,8 +50,8 @@ class TriggerZapTest {
         var runContext = runContextFactory.of(Map.of());
 
         var task = TriggerZap.builder()
-            .url(new Property<>("http://localhost:" + wireMockServer.port() + "/hooks/catch/123/456"))
-            .content(new Property<>(Map.of("event", "test", "data", "hello")))
+            .url(Property.ofValue("http://localhost:" + wireMockServer.port() + "/hooks/catch/123/456"))
+            .content(Property.ofValue(Map.of("event", "test", "data", "hello")))
             .build();
 
         var output = task.run(runContext);
@@ -74,8 +74,8 @@ class TriggerZapTest {
         var runContext = runContextFactory.of(Map.of());
 
         var task = TriggerZap.builder()
-            .url(new Property<>("http://localhost:" + wireMockServer.port() + "/hooks/catch/error"))
-            .content(new Property<>(Map.of("test", "data")))
+            .url(Property.ofValue("http://localhost:" + wireMockServer.port() + "/hooks/catch/error"))
+            .content(Property.ofValue(Map.of("test", "data")))
             .allowFailed(Property.ofValue(true))
             .build();
 
@@ -95,9 +95,9 @@ class TriggerZapTest {
         var runContext = runContextFactory.of(Map.of());
 
         var task = TriggerZap.builder()
-            .url(new Property<>("http://localhost:" + wireMockServer.port() + "/hooks/catch/headers"))
-            .content(new Property<>(Map.of("key", "value")))
-            .headers(new Property<>(Map.of("X-Custom-Header", "custom-value", "Authorization", "Bearer test-token")))
+            .url(Property.ofValue("http://localhost:" + wireMockServer.port() + "/hooks/catch/headers"))
+            .content(Property.ofValue(Map.of("key", "value")))
+            .headers(Property.ofValue(Map.of("X-Custom-Header", "custom-value", "Authorization", "Bearer test-token")))
             .build();
 
         var output = task.run(runContext);
