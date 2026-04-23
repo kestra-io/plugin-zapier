@@ -9,6 +9,7 @@ import io.kestra.core.http.client.configurations.HttpConfiguration;
 import io.kestra.core.http.client.configurations.TimeoutConfiguration;
 import io.kestra.core.models.annotations.Example;
 import io.kestra.core.models.annotations.Plugin;
+import io.kestra.core.models.annotations.PluginProperty;
 import io.kestra.core.models.property.Property;
 import io.kestra.core.models.tasks.RunnableTask;
 import io.kestra.core.models.tasks.Task;
@@ -67,6 +68,7 @@ public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> 
             Use the Catch Hook URL provided by Zapier, typically `https://hooks.zapier.com/hooks/catch/...`"""
     )
     @NotNull
+    @PluginProperty(secret = true)
     private Property<String> url;
 
     @Schema(
