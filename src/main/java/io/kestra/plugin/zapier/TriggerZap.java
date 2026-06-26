@@ -68,7 +68,7 @@ public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> 
             Use the Catch Hook URL provided by Zapier, typically `https://hooks.zapier.com/hooks/catch/...`"""
     )
     @NotNull
-    @PluginProperty(secret = true)
+    @PluginProperty(secret = true, group = "connection")
     private Property<String> url;
 
     @Schema(
