@@ -68,7 +68,8 @@ public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> 
             Use the Catch Hook URL provided by Zapier, typically `https://hooks.zapier.com/hooks/catch/...`"""
     )
     @NotNull
-    @PluginProperty(secret = true)
+    @ToString.Exclude
+    @PluginProperty(secret = true, group = "connection")
     private Property<String> url;
 
     @Schema(
@@ -129,7 +130,7 @@ public class TriggerZap extends Task implements RunnableTask<TriggerZap.Output> 
         @SuppressWarnings("unchecked")
         var rHeaders = runContext.render(headers).asMap(String.class, String.class);
 
-        logger.info("Sending {} request to Zapier webhook: {}", rMethod, rUrl);
+        logger.info("Sending {} request to Zapier webhook: {}", rMethod, URI.create(rUrl).getHost());
 
         var uri = URI.create(rUrl);
 
