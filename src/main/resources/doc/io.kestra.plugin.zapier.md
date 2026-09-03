@@ -12,4 +12,4 @@ The output includes `status` (HTTP response code), `body` (raw response string),
 
 ## Connection
 
-Store the webhook URL in [secrets](https://kestra.io/docs/concepts/secret) and apply it globally with [plugin defaults](https://kestra.io/docs/workflow-components/plugin-defaults).
+Store the webhook URL in [secrets](https://kestra.io/docs/concepts/secret) and set it on each task.
